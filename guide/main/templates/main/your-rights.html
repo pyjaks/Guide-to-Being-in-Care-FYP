@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-
 <body>
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <a class="navbar-brand" href="#">Guide to being in care</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -19,7 +18,7 @@
             <li class="nav-item">
             <a class="nav-link" href="#">Your Voice</a>
           </li>
-            <!-- drop down
+            <!---------------- drop down
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
@@ -28,10 +27,27 @@
               <a class="dropdown-item" href="#">Something else here</a>
             </div>
           </li>
-          ---->
+          ------------------------->
         </ul>
       </div>
     </nav>
+    <main role="main">
+        <div class="container pt-5 mt-5">
+            <h2>Your Rights</h2>
+        <ul>
+            <li>You have a right to an education. </li>
+            <li>You have a right to be heard and have a say about issues affecting you.</li>
+            <li>You have a right to practice your religion.</li>
+            <li>You have the right to have your care plan reviewed.</li>
+            <li>You have a right to be protected from violence, abuse and neglect.</li>
+            <li>You have a right to have your identity, religious and cultural needs met.</li>
+            <li>You have a right to family life and to have contact as long as it is safe for you.</li>
+            <li>You have a right to be treated in a non-discriminatory way.</li>
+            <li>You have a right to confidentiality – People should keep information about you private unless you or someone
+            else were being harmed or may come to harm. If information needs to be passed on, you should be made aware and
+            told the reasons why it needs to be shared.</li>
+        </div>
+    </main>
 </body>
 
 {% endblock %}
