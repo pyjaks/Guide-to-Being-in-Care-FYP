@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main'
+    'main',
+    'django_sass',
 ]
 
 MIDDLEWARE = [
@@ -124,5 +125,5 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'root')
 STATICFILES_DIRS = [
         BASE_DIR / "static",
-        BASE_DIR / "boot",
+        BASE_DIR / "bootstrap",
 ]
