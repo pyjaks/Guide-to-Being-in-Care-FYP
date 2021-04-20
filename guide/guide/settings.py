@@ -127,3 +127,6 @@ STATICFILES_DIRS = [
         BASE_DIR / "static",
         BASE_DIR / "bootstrap",
 ]
+
+LOGIN_REDIRECT_URL = "/main/"
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
