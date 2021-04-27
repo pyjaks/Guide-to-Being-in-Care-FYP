@@ -13,7 +13,7 @@ from main.views import HomePageView
 #         context = super().get_context_data(**kwargs)
 #         return context
 #
-class ForumDetailView(DetailView):
+class DiscussionBoardDetailView(DetailView):
     model = Post
 
     def get_context_data(self, **kwargs):
