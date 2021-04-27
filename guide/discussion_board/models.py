@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth import get_user_model
+from django.shortcuts import reverse
 
 User = get_user_model()
 
@@ -41,6 +42,7 @@ class Category(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=400)
     slug = models.SlugField(max_length=400, unique=True, blank=True)
+    user = models.ForeignKey(Author, on_delete=models.CASCADE)
     content = models.TextField()
     categories = models.ManyToManyField(Category)
     datePosted = models.DateTimeField(auto_now_add=True)
@@ -50,6 +52,11 @@ class Post(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         super(Post, self).save(*args, **kwargs)
+
+    def get_url(self):
+        return reverse("detail", kwargs={
+                                "slug": self.slug
+                                })
 
     def __str__(self):
         return self.title
