@@ -26,6 +26,7 @@ class Author(models.Model):
 class Category(models.Model):
     title = models.CharField(max_length=50)
     slug = models.SlugField(max_length=400, unique=True, blank=True)
+    description = models.TextField(default="description")
 
     class Meta:
         verbose_name_plural = "categories"
@@ -35,8 +36,21 @@ class Category(models.Model):
             self.slug = slugify(self.title)
         super(Category, self).save(*args, **kwargs)
 
+    def get_url(self):
+        return reverse("posts", kwargs={
+            "slug": self.slug
+        })
+
     def __str__(self):
         return self.title
+
+    @property
+    def post_count(self):
+        return Post.objects.filter(categories=self).count()
+
+    @property
+    def last_post(self):
+        return Post.objects.filter(categories=self).latest("datePosted")
 
 
 class Post(models.Model):
@@ -58,5 +72,35 @@ class Post(models.Model):
                                 "slug": self.slug
                                 })
 
+    def get_comments(self):
+        return Comment.objects.filter(original_post=self)
+
     def __str__(self):
         return self.title
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(Author, on_delete=models.CASCADE)
+    content = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+    original_post = models.ForeignKey(Post, on_delete=models.CASCADE)
+
+    def get_replies(self):
+        return Reply.objects.filter(reply_to=self)
+
+    def __str__(self):
+        return self.content[:100]
+
+
+class Reply(models.Model):
+    user = models.ForeignKey(Author, on_delete=models.CASCADE)
+    content = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+    reply_to = models.ForeignKey(Comment, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.content[:100]
+
+    class Meta:
+        verbose_name_plural = "replies"
+

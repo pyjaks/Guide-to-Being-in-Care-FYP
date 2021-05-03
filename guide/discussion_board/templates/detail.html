@@ -42,7 +42,7 @@
     <div class="container">
         <!--Navigation-->
         <div class="navigate">
-            <span><a href="">MyForum - Forums</a> >> <a href="">random subforum</a> >> <a href="{{post.get_url}}">{{post.title}}</a></span>
+            <span><a href="">MyForum - Forums</a> >> <a href="">{{post.categories}}</a> >> <a href="{{post.get_url}}">{{post.title}}</a></span>
         </div>
 
         <!--Topic Section-->
@@ -50,7 +50,7 @@
             <!--Original thread-->
             <div class="head">
                 <div class="authors">{{post.user}}</div>
-                <div class="content">Topic: {{post.tite}} </div>
+                <div class="content">Topic: {{post.title}} </div>
             </div>
 
             <div class="body">
@@ -75,21 +75,34 @@
         </div>
 
         <!--Comments Section-->
+
+        {% for comment in post.get_comments %}
+
         <div class="comments-container">
             <div class="body">
                 <div class="authors">
-                    <div class="username"><a href="">AnotherUser</a></div>
+                    <div class="username"><a href="">{{comment.user}}</a></div>
                     <div>Role</div>
-                    <img src="https://cdn.pixabay.com/photo/2015/11/06/13/27/ninja-1027877_960_720.jpg" alt="">
-                    <div>Posts: <u>455</u></div>
-                    <div>Points: <u>4586</u></div>
                 </div>
                 <div class="content">
-                    Just a comment of the above random topic.
-                    <br>To see how it looks like.
-                    <br><br>
-                    Nothing more and nothing less.
+                    {{comment.content}}
                     <br>
+                    <div class="comment">
+                        <button onclick="showReply()">Reply</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Replies-->
+        {% for reply in comment.get_replies %}
+         <div class="comments-container">
+            <div class="body">
+                <div class="authors">
+                    <div class="username"><a href="">{{reply.user}}</a></div>
+                    <div>Role</div>
+                </div>
+                <div class="content">
+                    {{reply.content}}
                     <br>
                     <div class="comment">
                         <button onclick="showReply()">Reply</button>
@@ -102,36 +115,10 @@
             <textarea name="reply" id="" placeholder="reply here ... "></textarea>
             <input type="submit" value="submit">
         </div>
+        {% endfor %}
 
+        {% endfor %}
 
-        <!--Another Comment With replies-->
-        <div class="comments-container">
-            <div class="body">
-                <div class="authors">
-                    <div class="username"><a href="">AnotherUser</a></div>
-                    <div>Role</div>
-                    <img src="https://cdn.pixabay.com/photo/2015/11/06/13/27/ninja-1027877_960_720.jpg" alt="">
-                    <div>Posts: <u>455</u></div>
-                    <div>Points: <u>4586</u></div>
-                </div>
-                <div class="content">
-                    Just a comment of the above random topic.
-                    <br>To see how it looks like.
-                    <br><br>
-                    Nothing more and nothing less.
-                    <br>
-                    <br>
-                    <div class="comment">
-                        <button onclick="showReply()">Reply</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--Reply Area-->
-        <div class="comment-area hide" id="reply-area">
-            <textarea name="reply" id="" placeholder="reply here ... "></textarea>
-            <input type="submit" value="submit">
-        </div>
     </div>
 
 </body>
