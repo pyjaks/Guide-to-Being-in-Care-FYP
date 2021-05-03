@@ -75,6 +75,14 @@ class Post(models.Model):
     def get_comments(self):
         return Comment.objects.filter(original_post=self)
 
+    @property
+    def comments_count(self):
+        return Comment.objects.filter(original_post=self).count()
+
+    @property
+    def last_comment(self):
+        return Comment.objects.filter(original_post=self).latest("datePosted")
+
     def __str__(self):
         return self.title
 
@@ -82,7 +90,7 @@ class Post(models.Model):
 class Comment(models.Model):
     user = models.ForeignKey(Author, on_delete=models.CASCADE)
     content = models.TextField()
-    date = models.DateTimeField(auto_now_add=True)
+    datePosted = models.DateTimeField(auto_now_add=True)
     original_post = models.ForeignKey(Post, on_delete=models.CASCADE)
 
     def get_replies(self):
@@ -95,7 +103,7 @@ class Comment(models.Model):
 class Reply(models.Model):
     user = models.ForeignKey(Author, on_delete=models.CASCADE)
     content = models.TextField()
-    date = models.DateTimeField(auto_now_add=True)
+    datePosted = models.DateTimeField(auto_now_add=True)
     reply_to = models.ForeignKey(Comment, on_delete=models.CASCADE)
 
     def __str__(self):

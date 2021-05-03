@@ -43,7 +43,7 @@
     <div class="container">
         <!--Navigation-->
         <div class="navigate">
-            <span><a href="">MyForum - Forums</a> >> <a href="">random subforum</a></span>
+            <span><a href="{% url 'discussion-board' %}">Main</a> >> <a href="">{{ category }}</a></span>
         </div>
         <!--Display posts table-->
         <div class="posts-table">
@@ -63,12 +63,12 @@
                     <span>Started by <b><a href="">{{post.user}}</a></b>.</span>
                 </div>
                 <div class="replies">
-                    2 replies <br>
+                    {{ post.comments_count }} comments <br>
                 </div>
 
                 <div class="last-reply">
-                    test date
-                    <br>By <b><a href="">User</a></b>
+                    {{ post.last_comment.datePosted }}
+                    <br>By <b><a href="">{{post.last_comment.user}}</a></b>
                 </div>
             </div>
             {% endfor %}
@@ -80,18 +80,5 @@
             </div>
         <!--pagination ends-->
     </div>
-
-    <div class="note">
-        <span><i class="fa fa-frown-o"></i>&nbsp; 0 Engagement Topic</span>&nbsp;&nbsp;&nbsp;<a href=""><i class="fa fa-share-square"></i></a><br>
-        <span><i class="fa fa-book"></i>&nbsp; Low Engagement Topic</span>&nbsp;&nbsp;&nbsp;<a href=""><i class="fa fa-share-square"></i></a><br>
-        <span><i class="fa fa-fire"></i>&nbsp; Popular Topic</span>&nbsp;&nbsp;&nbsp;<a href=""><i class="fa fa-share-square"></i></a><br>
-        <span><i class="fa fa-rocket"></i>&nbsp; High Engagement Topic</span>&nbsp;&nbsp;&nbsp;<a href=""><i class="fa fa-share-square"></i></a><br>
-        <span><i class="fa fa-lock"></i>&nbsp; Closed Topic</span>&nbsp;&nbsp;&nbsp;<a href=""><i class="fa fa-share-square"></i></a><br>
-    </div>
 </body>
-
-{% for post in post_list %}
-{{ post.title }}
-{% endfor %}
-
 {% endblock %}
