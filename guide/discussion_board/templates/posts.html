@@ -13,71 +13,33 @@
 --->
 {% block content %}
 <body>
-    <header>
-        <!--NavBar Section-->
-        <div class="navbar">
-            <nav class="navigation hide" id="navigation">
-                <span class="close-icon" id="close-icon" onclick="showIconBar()"><i class="fa fa-close"></i></span>
-                <ul class="nav-list">
-                    <li class="nav-item"><a href="forums.html">Forums</a></li>
-                    <li class="nav-item"><a href="posts.html">Posts</a></li>
-                    <li class="nav-item"><a href="detail.html">Detail</a></li>
-                </ul>
-            </nav>
-            <a class="bar-icon" id="iconBar" onclick="hideIconBar()"><i class="fa fa-bars"></i></a>
-            <div class="brand">My Forum</div>
-        </div>
-        <!--SearchBox Section-->
-        <div class="search-box">
-            <div>
-                <select name="" id="">
-                    <option value="Everything">Everything</option>
-                    <option value="Titles">Titles</option>
-                    <option value="Descriptions">Descriptions</option>
-                </select>
-                <input type="text" name="q" placeholder="search ...">
-                <button><i class="fa fa-search"></i></button>
-            </div>
-        </div>
-    </header>
-    <div class="container">
+    <div class="container mt-5 pt-5">
         <!--Navigation-->
-        <div class="navigate">
+        <div class="navigate pb-4">
             <span><a href="{% url 'discussion-board' %}">Main</a> >> <a href="">{{ category }}</a></span>
         </div>
-        <!--Display posts table-->
-        <div class="posts-table">
-            <div class="table-head">
-                <div class="status">Status</div>
-                <div class="subjects">Subjects</div>
-                <div class="replies">Replies/Views</div>
-                <div class="last-reply">Last Reply</div>
+        {% for post in post_list %}
+        <div class="table-row border-bottom pb-3 mt-2 border-gray row">
+            <div class="col-md-7">
+                <h5><a href="{{post.get_url}}">{{post.title}}</a></h5>
+                <span>Started by <b><a href="">{{post.user}}</a></b>.</span>
             </div>
-
-            {% for post in post_list %}
-            <div class="table-row">
-                <div class="status"><i class="fa fa-fire"></i></div>
-                <div class="subjects">
-                    <a href="{{post.get_url}}">{{post.title}}</a>
-                    <br>
-                    <span>Started by <b><a href="">{{post.user}}</a></b>.</span>
-                </div>
-                <div class="replies">
-                    {{ post.comments_count }} comments <br>
-                </div>
-
-                <div class="last-reply">
-                    {{ post.last_comment.datePosted }}
-                    <br>By <b><a href="">{{post.last_comment.user}}</a></b>
-                </div>
+            <div class="replies col-md-2">
+                {{ post.comments_count }} comments <br>
             </div>
-            {% endfor %}
-
+            {% if post.last_comment %}
+            <div class="last-reply col-md-3">
+                {{ post.last_comment.datePosted }}
+                <br>By <b><a href="">{{post.last_comment.user}}</a></b>
+            </div>
+            {% endif %}
         </div>
+        {% endfor %}
+
         <!--Pagination starts-->
-            <div class="pagination">
-                pages: <a href="">1</a><a href="">2</a><a href="">3</a>
-            </div>
+        <div class="pagination my-3">
+            pages: <a href="">1</a><a href="">2</a><a href="">3</a>
+        </div>
         <!--pagination ends-->
     </div>
 </body>
