@@ -19,7 +19,7 @@
         <div class="media text-muted pt-3">
             <div class="sub-discussion-board-row media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
                 <div class="sub-discussion-board-description">
-                    <h4><a href="{{discussion_board.get_url}}">{{discussion_board.title}}</a></h4>
+                    <h4><a href="{{discussion_board.get_absolute_url}}">{{discussion_board.title}}</a></h4>
                     <p>{{ discussion_board.description }}</p>
                 </div>
                 <div class="sub-discussion-board-post-count">
@@ -27,7 +27,7 @@
                 </div>
                 {% if discussion_board.last_post %}
                 <div class="sub-discussion-board-info">
-                    <b><a href="{{discussion_board.last_post.get_url}}">Last post</a></b> by <a href="">{{discussion_board.last_post.user}}</a>
+                    <b><a href="{{discussion_board.last_post.get_absolute_url}}">Last post</a></b> by <a href="">{{discussion_board.last_post.user}}</a>
                     <br>on <small>{{discussion_board.last_post.datePosted}}</small>
                 </div>
                 {% endif %}

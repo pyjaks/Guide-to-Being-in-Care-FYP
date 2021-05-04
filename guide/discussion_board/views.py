@@ -1,6 +1,11 @@
+from datetime import datetime
+
 from django.shortcuts import get_object_or_404
-from django.views.generic import TemplateView, DetailView, ListView
+from django.views.generic import TemplateView, DetailView, ListView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 from .forms import *
+from .models import Category, Author
 
 
 class DiscussionBoardHomeView(TemplateView):
@@ -31,4 +36,17 @@ class DiscussionBoardPostsView(ListView):
         context = super().get_context_data(**kwargs)
         context["category"] = self.category
         return context
+
+
+class CreatePostView(LoginRequiredMixin, CreateView):
+    model = Post
+    fields = ['title', 'content', 'categories']
+
+    def form_valid(self, form):
+        model_instance = form.save(commit=False)
+        model_instance.user = Author.objects.get(user=self.request.user)
+        model_instance.datePosted = datetime.now()
+        model_instance.save()
+        return super().form_valid(form)
+
 

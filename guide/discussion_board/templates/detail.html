@@ -16,7 +16,7 @@
     <div class="container mt-5 pt-5">
         <!--Navigation-->
         <div class="navigate">
-            <span><a href="">Main</a> >> <a href="{{post.categories.all.0.get_url}}">{{post.categories.all.0}}</a> >> <a href="{{post.get_url}}">{{post.title}}</a></span>
+            <span><a href="">Main</a> >> <a href="{{post.categories.all.0.get_absolute_url}}">{{post.categories.all.0}}</a> >> <a href="{{post.get_absolute_url}}">{{post.title}}</a></span>
         </div>
 
         <!--Topic Section-->
@@ -28,10 +28,6 @@
             </div>
 
             <div class="body">
-                <div class="authors">
-                    <div class="username"><a href="">Username</a></div>
-                    <div>Role</div>
-                </div>
                 <div class="content">
                     {{post.content}}
                     <br>

@@ -35,8 +35,9 @@ class Category(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         super(Category, self).save(*args, **kwargs)
+    # TODO: Error handling for when slug isn't unique
 
-    def get_url(self):
+    def get_absolute_url(self):
         return reverse("posts", kwargs={
             "slug": self.slug
         })
@@ -67,7 +68,7 @@ class Post(models.Model):
             self.slug = slugify(self.title)
         super(Post, self).save(*args, **kwargs)
 
-    def get_url(self):
+    def get_absolute_url(self):
         return reverse("detail", kwargs={
                                 "slug": self.slug
                                 })
