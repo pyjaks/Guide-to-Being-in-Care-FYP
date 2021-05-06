@@ -48,11 +48,11 @@ class Category(models.Model):
 
     @property
     def post_count(self):
-        return Post.objects.filter(categories=self).count()
+        return Post.objects.filter(categories=self).filter(approved=True).count()
 
     @property
     def last_post(self):
-        return Post.objects.filter(categories=self).latest("datePosted")
+        return Post.objects.filter(categories=self).filter(approved=True).latest("datePosted")
 
 
 class Post(models.Model):
@@ -80,11 +80,11 @@ class Post(models.Model):
 
     @property
     def comments_count(self):
-        return Comment.objects.filter(original_post=self).filter(approved=True).count()
+        return Comment.objects.filter(original_post=self).count()
 
     @property
     def last_comment(self):
-        return Comment.objects.filter(original_post=self).filter(approved=True).latest("datePosted")
+        return Comment.objects.filter(original_post=self).latest("datePosted")
 
     def __str__(self):
         return self.title
