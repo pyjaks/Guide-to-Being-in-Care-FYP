@@ -92,7 +92,7 @@ class Post(models.Model):
 
 class Comment(models.Model):
     user = models.ForeignKey(Author, on_delete=models.CASCADE)
-    content = models.TextField()
+    content = models.TextField(validators=[validate_is_profane])
     datePosted = models.DateTimeField(auto_now_add=True)
     original_post = models.ForeignKey(Post, on_delete=models.CASCADE)
 
@@ -105,7 +105,7 @@ class Comment(models.Model):
 
 class Reply(models.Model):
     user = models.ForeignKey(Author, on_delete=models.CASCADE)
-    content = models.TextField()
+    content = models.TextField(validators=[validate_is_profane])
     datePosted = models.DateTimeField(auto_now_add=True)
     reply_to = models.ForeignKey(Comment, on_delete=models.CASCADE)
 
