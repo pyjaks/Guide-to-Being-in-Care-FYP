@@ -19,21 +19,23 @@
             <span><a href="{% url 'discussion-board' %}">Main</a> >> <a href="">{{ category }}</a></span>
         </div>
         {% for post in post_list %}
-        <div class="table-row border-bottom pb-3 mt-2 border-gray row">
-            <div class="col-md-7">
-                <h5><a href="{{post.get_absolute_url}}">{{post.title}}</a></h5>
-                <span>Started by <b><a href="">{{post.user}}</a></b>.</span>
-            </div>
-            <div class="replies col-md-2">
-                {{ post.comments_count }} comments <br>
-            </div>
-            {% if post.last_comment %}
-            <div class="last-reply col-md-3">
-                {{ post.last_comment.datePosted }}
-                <br>By <b><a href="">{{post.last_comment.user}}</a></b>
+            {% if post.approved %}
+            <div class="table-row border-bottom pb-3 mt-2 border-gray row">
+                <div class="col-md-7">
+                    <h5><a href="{{post.get_absolute_url}}">{{post.title}}</a></h5>
+                    <span>Started by <b><a href="">{{post.user}}</a></b>.</span>
+                </div>
+                <div class="replies col-md-2">
+                    {{ post.comments_count }} comments <br>
+                </div>
+                {% if post.last_comment %}
+                <div class="last-reply col-md-3">
+                    {{ post.last_comment.datePosted }}
+                    <br>By <b><a href="">{{post.last_comment.user}}</a></b>
+                </div>
+                {% endif %}
             </div>
             {% endif %}
-        </div>
         {% endfor %}
 
         <!--Pagination starts-->
