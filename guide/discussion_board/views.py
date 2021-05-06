@@ -3,6 +3,7 @@ from datetime import datetime
 from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView, DetailView, ListView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import Http404
 
 from .forms import *
 from .models import Category, Author
@@ -19,6 +20,13 @@ class DiscussionBoardHomeView(TemplateView):
 
 class DiscussionBoardDetailView(DetailView):
     model = Post
+
+    def get(self, request, *args, **kwargs):
+        response = super().get(self, request, *args, **kwargs)
+        if self.object.approved:
+            return response
+        else:
+            raise Http404
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
