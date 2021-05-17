@@ -12,7 +12,6 @@ class Author(models.Model):
     fullname = models.CharField(max_length=40, blank=True)
     slug = models.SlugField(max_length=400, unique=True, blank=True)
     bio = models.TextField()
-    # profile_picture?
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -20,8 +19,7 @@ class Author(models.Model):
         super(Author, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.fullname
-        #or username
+        return self.username
 
 
 class Category(models.Model):
@@ -70,7 +68,6 @@ class Post(models.Model):
         super(Post, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        #if approved else 404?
         return reverse("detail", kwargs={
                                 "slug": self.slug
                                 })
