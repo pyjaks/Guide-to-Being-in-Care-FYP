@@ -3,6 +3,8 @@ from django.utils.text import slugify
 from django.contrib.auth import get_user_model
 from django.shortcuts import reverse
 from profanity.validators import validate_is_profane
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 User = get_user_model()
 
@@ -10,16 +12,9 @@ User = get_user_model()
 class Author(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     fullname = models.CharField(max_length=40, blank=True)
-    slug = models.SlugField(max_length=400, unique=True, blank=True)
-    bio = models.TextField()
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.fullname)
-        super(Author, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.username
+        return self.user.username
 
 
 class Category(models.Model):
@@ -111,4 +106,11 @@ class Reply(models.Model):
 
     class Meta:
         verbose_name_plural = "replies"
+
+
+@receiver(post_save, sender=get_user_model())
+def create_author(sender, instance, created, **kwargs):
+    if created:
+        Author.objects.create(user=instance)
+
 
