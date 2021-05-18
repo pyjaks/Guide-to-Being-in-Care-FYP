@@ -30,13 +30,10 @@ class CustomUserManager(BaseUserManager):
 class CustomUser(AbstractUser):
     date_of_birth = models.DateField(auto_now=False, auto_now_add=False)
 
-    REQUIRED_FIELDS = ['date_of_birth']
+    REQUIRED_FIELDS = ['date_of_birth', 'email']
     USERNAME_FIELD = 'username'
 
     objects = CustomUserManager()
-
-    def save(self, *args, **kwargs):
-        super(CustomUser, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.username
