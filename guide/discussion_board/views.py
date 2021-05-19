@@ -1,9 +1,11 @@
 from datetime import datetime
 
 from django.shortcuts import get_object_or_404
-from django.views.generic import TemplateView, DetailView, ListView, CreateView
+from django.views import View
+from django.views.generic import TemplateView, DetailView, ListView, CreateView, FormView
+from django.views.generic.detail import SingleObjectMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import Http404
+from django.http import Http404, HttpResponseForbidden
 from django.urls import reverse
 
 from .forms import *
@@ -19,8 +21,9 @@ class DiscussionBoardHomeView(TemplateView):
         return context
 
 
-class DiscussionBoardDetailView(DetailView):
+class PostDetailView(DetailView):
     model = Post
+    template_name = 'detail.html'
 
     def get(self, request, *args, **kwargs):
         response = super().get(self, request, *args, **kwargs)
@@ -31,7 +34,41 @@ class DiscussionBoardDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['form'] = NewCommentForm()
         return context
+
+
+class NewCommentFormView(SingleObjectMixin, FormView):
+    template_name = 'detail.html'
+    form_class = NewCommentForm
+    model = Post
+
+    def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseForbidden()
+        self.object = self.get_object()
+        return super().post(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.user = Author.objects.get(user=self.request.user)
+        form.instance.datePosted = datetime.now()
+        form.instance.original_post = self.get_object()
+        form.instance.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('detail', kwargs={'slug': self.object.slug})
+
+
+class DiscussionBoardDetailView(View):
+
+    def get(self, request, *args, **kwargs):
+        view = PostDetailView.as_view()
+        return view(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        view = NewCommentFormView.as_view()
+        return view(request, *args, **kwargs)
 
 
 class DiscussionBoardPostsView(ListView):

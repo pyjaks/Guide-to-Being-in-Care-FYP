@@ -31,17 +31,23 @@
                 <div class="content">
                     {{post.content}}
                     <br>
+                    <!---
                     <div class="comment">
                         <button onclick="showComment()">Comment</button>
                     </div>
+                    ---->
                 </div>
             </div>
         </div>
 
         <!--Comment Area-->
         <div class="comment-area hide" id="comment-area">
-            <textarea name="comment" id="" placeholder="comment here ... "></textarea>
+            <form method="post" action="">
+            {% csrf_token %}
+            {{ form }}
             <input type="submit" value="submit">
+            </form>
+            <!-- <textarea name="comment" id="" placeholder="Comment here"></textarea> -->
         </div>
 
         <!--Comments Section-->
@@ -52,7 +58,6 @@
             <div class="body">
                 <div class="authors">
                     <div class="username"><a href="">{{comment.user}}</a></div>
-                    <div>Role</div>
                 </div>
                 <div class="content">
                     {{comment.content}}
