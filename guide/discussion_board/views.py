@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView, DetailView, ListView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
+from django.urls import reverse
 
 from .forms import *
 from .models import Category, Author
@@ -46,7 +47,7 @@ class DiscussionBoardPostsView(ListView):
         return context
 
 
-class CreatePostView(LoginRequiredMixin, CreateView):
+class NewPostView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['title', 'content', 'categories']
 
@@ -57,4 +58,10 @@ class CreatePostView(LoginRequiredMixin, CreateView):
         model_instance.save()
         return super().form_valid(form)
 
+    def get_success_url(self):
+        return reverse('new-post-success')
+
+
+class NewPostSuccessView(TemplateView):
+    template_name = "new-post-sucess.html"
 
