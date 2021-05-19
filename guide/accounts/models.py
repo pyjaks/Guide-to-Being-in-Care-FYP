@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -34,6 +36,12 @@ class CustomUser(AbstractUser):
     USERNAME_FIELD = 'username'
 
     objects = CustomUserManager()
+
+    @property
+    def is_over_16(self):
+        today = date.today()
+        born = self.date_of_birth
+        return today.year - born.year - ((today.month, today.day) < (born.month, born.day)) > 16
 
     def __str__(self):
         return self.username

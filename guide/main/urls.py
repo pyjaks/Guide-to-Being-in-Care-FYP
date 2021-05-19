@@ -11,5 +11,5 @@ urlpatterns = [
     path("your-voice", views.HomePageView.as_view(), name='your-voice'),
     path("your-skills", views.HomePageView.as_view(), name='your-skills'),
     path("what-does-that-mean", views.HomePageView.as_view(), name='what-does-that-mean'),
-  #  path("16+", views.HomePageView.as_view(template_name="16+.html"))
+    path("16+", views.SixteenPlusPageView.as_view(template_name="16+.html"))
 ]
