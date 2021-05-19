@@ -15,9 +15,9 @@
 <body>
     <div class="container">
     <!--bootstrap example: https://getbootstrap.com/docs/4.0/examples/offcanvas/-->
-    <div class="my-3 p-3 bg-white rounded box-shadow">
+    <div class="bg-white rounded box-shadow">
         {% for discussion_board in discussion_boards %}
-        <div class="media text-muted pt-3">
+        <div class="media text-muted">
             <div class="sub-discussion-board-row media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
                 <div class="sub-discussion-board-description">
                     <h4><a href="{{discussion_board.get_absolute_url}}">{{discussion_board.title}}</a></h4>
