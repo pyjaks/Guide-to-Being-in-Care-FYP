@@ -13,7 +13,6 @@
 -->
 {% block content %}
 <body>
-    <div class="container mt-5 pt-5">
         <!--Navigation-->
         <div class="navigate">
             <span><a href="">Main</a> >> <a href="{{post.categories.all.0.get_absolute_url}}">{{post.categories.all.0}}</a> >> <a href="{{post.get_absolute_url}}">{{post.title}}</a></span>
@@ -88,10 +87,7 @@
             <input type="submit" value="submit">
         </div>
         {% endfor %}
-
         {% endfor %}
-
-    </div>
 
 </body>
 {% endblock %}
