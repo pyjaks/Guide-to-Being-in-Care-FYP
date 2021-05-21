@@ -13,32 +13,32 @@
           <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <div class="collapse navbar-collapse">
           <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
                   <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item active">
                   <a class="nav-link" href="{% url 'your-education' %}">Your Education</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item active">
                   <a class="nav-link" href="{% url 'your-skills' %}">Your Skills</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item active">
                   <a class="nav-link" href="{% url 'your-wellbeing' %}">Your Wellbeing</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item active">
                   <a class="nav-link" href="{% url 'your-voice' %}">Your Voice</a>
               </li>
               {% if user.is_over_16 %}
-              <li class="nav-item">
+              <li class="nav-item active">
                   <a class="nav-link" href="{% url '16+' %}">16+ Services</a>
               </li>
               {% endif %}
-              <li class="nav-item">
+              <li class="nav-item active">
                   <a class="nav-link" href="{% url 'discussion-board' %}">Discussion Board</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item active">
                   <a class="nav-link" href="{% url 'what-does-that-mean' %}">What does that mean?</a>
               </li>
               <!-- drop down
