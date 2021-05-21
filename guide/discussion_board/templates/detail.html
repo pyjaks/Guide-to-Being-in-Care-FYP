@@ -13,81 +13,64 @@
 -->
 {% block content %}
 <body>
-        <!--Navigation-->
-        <div class="navigate">
-            <span><a href="">Main</a> >> <a href="{{post.categories.all.0.get_absolute_url}}">{{post.categories.all.0}}</a> >> <a href="{{post.get_absolute_url}}">{{post.title}}</a></span>
+<div class="navigate">
+    <span><a href="">Main</a> >> <a href="{{post.categories.all.0.get_absolute_url}}">{{post.categories.all.0}}</a> >> <a href="{{post.get_absolute_url}}">{{post.title}}</a></span>
+</div>
+<div class="topic-container">
+    <div class="head">
+        <div class="authors">{{post.user}}</div>
+        <div class="content">Topic: {{post.title}} </div>
+    </div>
+    <div class="body">
+        <div class="content">
+            {{post.content}}
+            <br>
         </div>
+    </div>
+</div>
 
-        <!--Topic Section-->
-        <div class="topic-container">
-            <!--Original thread-->
-            <div class="head">
-                <div class="authors">{{post.user}}</div>
-                <div class="content">Topic: {{post.title}} </div>
-            </div>
+<div class="comment-area" id="comment-area">
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ new_comment_form }}
+        <input type="submit" value="submit">
+    </form>
+</div>
 
-            <div class="body">
-                <div class="content">
-                    {{post.content}}
-                    <br>
-                    <!---
-                    <div class="comment">
-                        <button onclick="showComment()">Comment</button>
-                    </div>
-                    ---->
-                </div>
-            </div>
+{% for comment in post.get_comments %}
+<div class="comments-container">
+    <div class="body">
+        <div class="authors">
+            <div class="username"><a href="">{{ comment.user }}</a></div>
         </div>
-
-        <!--Comment Area-->
-        <div class="comment-area hide" id="comment-area">
-            <form method="post" action="">
-            {% csrf_token %}
-            {{ form }}
-            <input type="submit" value="submit">
-            </form>
-            <!-- <textarea name="comment" id="" placeholder="Comment here"></textarea> -->
+        <div class="content">
+            {{ comment.content }}
+            <br>
         </div>
+    </div>
+</div>
 
-        <!--Comments Section-->
-
-        {% for comment in post.get_comments %}
-
-        <div class="comments-container">
-            <div class="body">
-                <div class="authors">
-                    <div class="username"><a href="">{{comment.user}}</a></div>
-                </div>
-                <div class="content">
-                    {{comment.content}}
-                    <br>
-                    <div class="comment">
-                        <button onclick="showReply()">Reply</button>
-                    </div>
-                </div>
-            </div>
+{% for reply in comment.get_replies %}
+<div class="comments-container" style="width: 95%, margin-left:50px;">
+    <div class="body">
+        <div class="authors">
+            <div class="username"><a href="">{{ reply.user }}</a></div>
         </div>
-        <!--Replies-->
-        {% for reply in comment.get_replies %}
-         <div class="comments-container" style="width: 95%, margin-left:5%;">
-            <div class="body">
-                <div class="authors">
-                    <div class="username"><a href="">{{reply.user}}</a></div>
-                    <div>Role</div>
-                </div>
-                <div class="content">
-                    {{reply.content}}
-                    <br>
-                </div>
-            </div>
+        <div class="content">
+            {{ reply.content }}
+            <br>
         </div>
-        <!--Reply Area-->
-        <div class="comment-area hide" id="reply-area">
-            <textarea name="reply" id="" placeholder="reply here ... "></textarea>
-            <input type="submit" value="submit">
-        </div>
-        {% endfor %}
-        {% endfor %}
-
+    </div>
+</div>
+{% endfor %}
+<div class="comment-area hide" id="reply-area">
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ new_reply_form }}
+        <input type="hidden" name="reply_to" value="{{ comment.id }}">
+        <input type="submit" value="submit">
+    </form>
+{% endfor %}
+</div>
 </body>
 {% endblock %}

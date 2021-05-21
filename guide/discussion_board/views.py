@@ -35,7 +35,8 @@ class PostDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = NewCommentForm()
+        context['new_comment_form'] = NewCommentForm()
+        context['new_reply_form'] = NewReplyForm()
         return context
 
 
@@ -61,6 +62,28 @@ class NewCommentFormView(SingleObjectMixin, FormView):
         return reverse('detail', kwargs={'slug': self.object.slug})
 
 
+class NewReplyFormView(SingleObjectMixin, FormView):
+    template_name = 'detail.html'
+    form_class = NewReplyForm
+    model = Post
+
+    def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseForbidden()
+        self.object = self.get_object()
+        return super().post(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.user = Author.objects.get(user=self.request.user)
+        form.instance.datePosted = datetime.now()
+        form.instance.reply_to = Comment.objects.get(id=form.data["reply_to"])
+        form.instance.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('detail', kwargs={'slug': self.object.slug})
+
+
 class DiscussionBoardDetailView(View):
 
     def get(self, request, *args, **kwargs):
@@ -69,6 +92,9 @@ class DiscussionBoardDetailView(View):
 
     def post(self, request, *args, **kwargs):
         view = NewCommentFormView.as_view()
+        print(request.POST)
+        if "reply_to" in request.POST:
+            view = NewReplyFormView.as_view()
         return view(request, *args, **kwargs)
 
 
