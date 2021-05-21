@@ -73,6 +73,7 @@ class DiscussionBoardDetailView(View):
 
 class DiscussionBoardPostsView(ListView):
     model = Post
+    paginate_by = 8
 
     def get_queryset(self):
         self.category = get_object_or_404(Category, slug=self.kwargs['slug'])
