@@ -15,10 +15,11 @@
 <body>
     <div class="container">
     <!--bootstrap example: https://getbootstrap.com/docs/4.0/examples/offcanvas/-->
-    <div class="bg-white rounded box-shadow">
+        <div class="bg-white rounded box-shadow">
+        <h3>Discussion Board</h3>
         {% for discussion_board in discussion_boards %}
         <div class="media text-muted">
-            <div class="sub-discussion-board-row media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+            <div class="sub-discussion-board-row media-body pb-3 mb-0 mt-2 small lh-125 border-bottom border-gray">
                 <div class="sub-discussion-board-description">
                     <h4><a href="{{discussion_board.get_absolute_url}}">{{discussion_board.title}}</a></h4>
                     <p>{{ discussion_board.description }}</p>
@@ -37,14 +38,8 @@
         {% endfor %}
     </div>
 
-    <!-- Forum Info -->
-    <div class="forum-info">
-        <div class="chart">
-            MyForum - Stats &nbsp;<i class="fa fa-bar-chart"></i>
-        </div>
-        <span><u>5,369</u> Posts in <u>48</u> Topics by <u>8,124</u> Members.</span><br>
-        <span>Latest post: <b><a href="">Random post</a></b> on Dec 15 2021 By <a href="">RandomUser</a></span>.<br>
-        <span>Check <a href="">the latest posts</a> .</span><br>
+    <div class="discussion-board-info pt-2 mt-2">
+        <span><u></u> {{ posts.count }} Posts in {{ discussion_boards.count }} Topics.</span><br>
     </div>
     </div>
 </body>
