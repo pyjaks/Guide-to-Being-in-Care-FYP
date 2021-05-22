@@ -104,7 +104,7 @@ class DiscussionBoardPostsView(ListView):
 
     def get_queryset(self):
         self.category = get_object_or_404(Category, slug=self.kwargs['slug'])
-        return Post.objects.filter(categories=self.category)
+        return Post.objects.filter(category=self.category)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -114,7 +114,7 @@ class DiscussionBoardPostsView(ListView):
 
 class NewPostView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['title', 'content', 'categories']
+    form_class = NewPostForm
 
     def form_valid(self, form):
         model_instance = form.save(commit=False)

@@ -41,11 +41,11 @@ class Category(models.Model):
 
     @property
     def post_count(self):
-        return Post.objects.filter(categories=self).filter(approved=True).count()
+        return Post.objects.filter(category=self).filter(approved=True).count()
 
     @property
     def last_post(self):
-        return Post.objects.filter(categories=self).filter(approved=True).latest("datePosted")
+        return Post.objects.filter(category=self).filter(approved=True).latest("datePosted")
 
 
 class Post(models.Model):
@@ -53,7 +53,7 @@ class Post(models.Model):
     slug = models.SlugField(max_length=400, unique=True, blank=True)
     user = models.ForeignKey(Author, on_delete=models.CASCADE)
     content = models.TextField(validators=[validate_is_profane])
-    categories = models.ManyToManyField(Category)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='categories')
     datePosted = models.DateTimeField(auto_now_add=True)
     approved = models.BooleanField(default=False)
 
