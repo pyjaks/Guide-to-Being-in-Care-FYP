@@ -1,46 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'main/css/custom.css' %}" >
-    <title>{% block title %}Guide to being in care{% endblock %}</title>
+    <title>Guide to being in care {% block title %} {% endblock %}</title>
 
     <nav class="navbar navbar-expand-md navbar-dark static-top bg-primary">
-      <a class="navbar-brand" href="">Guide to being in care</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-      </button>
+        <a class="navbar-brand" href="">Guide to being in care</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-      <div class="collapse navbar-collapse">
-          <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                  <a class="nav-link" href="{% url 'main' %}">Home <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item active">
-                  <a class="nav-link" href="{% url 'your-education' %}">Your Education</a>
-              </li>
-              <li class="nav-item active">
-                  <a class="nav-link" href="{% url 'your-skills' %}">Your Skills</a>
-              </li>
-              <li class="nav-item active">
-                  <a class="nav-link" href="{% url 'your-wellbeing' %}">Your Wellbeing</a>
-              </li>
-              <li class="nav-item active">
-                  <a class="nav-link" href="{% url 'your-voice' %}">Your Voice</a>
-              </li>
-              {% if user.is_over_16 %}
-              <li class="nav-item active">
-                  <a class="nav-link" href="{% url '16+' %}">16+ Services</a>
-              </li>
-              {% endif %}
-              <li class="nav-item active">
-                  <a class="nav-link" href="{% url 'discussion-board' %}">Discussion Board</a>
-              </li>
-              <li class="nav-item active">
-                  <a class="nav-link" href="{% url 'what-does-that-mean' %}">What does that mean?</a>
-              </li>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'main' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'your-education' %}">Your Education</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'your-skills' %}">Your Skills</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'your-wellbeing' %}">Your Wellbeing</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'your-voice' %}">Your Voice</a>
+                </li>
+                {% if user.is_over_16 %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url '16+' %}">16+ Services</a>
+                </li>
+                {% endif %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'discussion-board' %}">Discussion Board</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'what-does-that-mean' %}">What does that mean?</a>
+                </li>
               <!-- drop down
               <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
@@ -51,13 +53,13 @@
                   </div>
               </li>
                ---->
-        </ul>
-        {% if user.is_authenticated %}
-          <p>{{ user.get_username }} | <a href="{% url 'logout'%}?next={{request.path}}">Logout</a></p>
-        {% else %}
-          <p><a href="{% url 'login'%}?next={{request.path}}">Login</a></p>
-        {% endif %}
-      </div>
+            </ul>
+            {% if user.is_authenticated %}
+            <p>{{ user.get_username }} | <a href="{% url 'logout'%}?next={{request.path}}">Logout</a></p>
+            {% else %}
+            <p><a href="{% url 'login'%}?next={{request.path}}">Login</a></p>
+            {% endif %}
+        </div>
     </nav>
 </head>
 <body>
