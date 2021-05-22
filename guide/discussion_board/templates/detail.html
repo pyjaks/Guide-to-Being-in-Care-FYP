@@ -34,7 +34,7 @@
         {{ comment.content }}
         <br>
     </div>
-    <div class="comments-container ml-5" style="width: 95%;">
+    <div class="comments-container ml-3" style="width: 95%;">
         {% for reply in comment.get_replies %}
         <div class="body">
             <div class="authors">
@@ -47,7 +47,7 @@
         </div>
         {% endfor %}
     </div>
-    <div class="reply-area">
+    <div class="reply-area ml-3">
     <form method="post" action="">
         {% csrf_token %}
         {{ new_reply_form|crispy }}
