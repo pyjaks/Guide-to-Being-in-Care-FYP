@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
 <!--
 <html lang="en">
 <head>
@@ -14,11 +16,11 @@
 {% block content %}
 <body>
 <div class="navigate">
-    <span><a href="">Main</a> >> <a href="{{post.categories.all.0.get_absolute_url}}">{{post.categories.all.0}}</a> >> <a href="{{post.get_absolute_url}}">{{post.title}}</a></span>
+    <span><a href="{% url 'discussion-board' %}">Main</a> >> <a href="{{post.categories.all.0.get_absolute_url}}">{{post.categories.all.0}}</a> >> <a href="{{post.get_absolute_url}}">{{post.title}}</a></span>
 </div>
 <div class="topic-container">
     <div class="head">
-        <div class="authors">{{post.user}}</div>
+        <div class="authors"><b>{{post.user}}</b></div>
         <div class="content">Topic: {{post.title}} </div>
     </div>
     <div class="body">
@@ -32,7 +34,7 @@
 <div class="comment-area" id="comment-area">
     <form method="post" action="">
         {% csrf_token %}
-        {{ new_comment_form }}
+        {{ new_comment_form|crispy }}
         <input type="submit" value="submit">
     </form>
 </div>
@@ -41,7 +43,7 @@
 <div class="comments-container">
     <div class="body">
         <div class="authors">
-            <div class="username"><a href="">{{ comment.user }}</a></div>
+            <div class="username"><b>{{ comment.user }}</b></div>
         </div>
         <div class="content">
             {{ comment.content }}
@@ -66,7 +68,7 @@
 <div class="comment-area hide" id="reply-area">
     <form method="post" action="">
         {% csrf_token %}
-        {{ new_reply_form }}
+        {{ new_reply_form|crispy }}
         <input type="hidden" name="reply_to" value="{{ comment.id }}">
         <input type="submit" value="submit">
     </form>

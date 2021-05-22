@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'main',
     'discussion_board',
     'django_sass',
+    'crispy_forms',
 ]
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
@@ -134,3 +135,5 @@ STATICFILES_DIRS = [
 
 LOGIN_REDIRECT_URL = "/main/"
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap'
