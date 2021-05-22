@@ -1,67 +1,56 @@
 {% extends 'base.html' %}
-<!---
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forum</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital@1&display=swap" rel="stylesheet">
-</head>
---->
-{% block content %}
-<body>
-        <!--Navigation-->
-        <div class="navigate pb-4">
-            <span><a href="{% url 'discussion-board' %}">Main</a> >> <a href="">{{ category }}</a></span>
-        </div>
-        <div class="table-row row">
-            <div class="col-md-7">
-                <h5>Topics</h5>
-            </div>
-            <div class="replies col-md-2">
-                <h5>Comments</h5>
-            </div>
-            <div class="last-reply col-md-3">
-                <h5>Last updated</h5>
-            </div>
-        </div>
-        {% for post in post_list %}
-            {% if post.approved %}
-            <div class="table-row pb-3 mt-2 border-bottom  border-gray row">
-                <div class="col-md-7">
-                    <h5><a href="{{post.get_absolute_url}}">{{post.title}}</a></h5>
-                    <span>Started by <b>{{post.user}}</b>.</span>
-                </div>
-                <div class="replies col-md-2">
-                    {{ post.comments_count }} comments <br>
-                </div>
-                {% if post.last_comment %}
-                <div class="last-reply col-md-3">
-                    {{ post.last_comment.datePosted }}
-                    <br>By <b>{{post.last_comment.user}}</b>
-                </div>
-                {% endif %}
-            </div>
-            {% endif %}
-        {% endfor %}
 
-        <div class="pagination my-3">
-            <span class="step-links">
-                {% if page_obj.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-                {% endif %}
-                <span class="current">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                </span>
-                {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">next</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-                {% endif %}
-            </span>
+{% block title %} - Discussion Board {% endblock %}
+
+{% block content %}
+<div class="navigate pb-4">
+    <span><a href="{% url 'discussion-board' %}">Main</a> >> <a href="">{{ category }}</a></span>
+</div>
+<div class="table-row row">
+    <div class="col-md-7">
+        <h5>Topics</h5>
+    </div>
+    <div class="replies col-md-2">
+        <h5>Comments</h5>
+    </div>
+    <div class="last-reply col-md-3">
+        <h5>Last updated</h5>
+    </div>
+</div>
+{% for post in post_list %}
+    {% if post.approved %}
+    <div class="table-row pb-3 mt-2 border-bottom  border-gray row">
+        <div class="col-md-7">
+            <h5><a href="{{post.get_absolute_url}}">{{post.title}}</a></h5>
+            <span>Started by <b>{{post.user}}</b>.</span>
         </div>
-</body>
+        <div class="replies col-md-2">
+            {{ post.comments_count }} comments <br>
+        </div>
+        {% if post.last_comment %}
+        <div class="last-reply col-md-3">
+            {{ post.last_comment.datePosted }}
+            <br>By <b>{{post.last_comment.user}}</b>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+{% endfor %}
+
+<div class="pagination my-3">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+        <a href="?page=1">&laquo; first</a>
+        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">next</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
 {% endblock %}
