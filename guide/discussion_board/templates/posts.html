@@ -6,6 +6,9 @@
 <div class="navigate pb-4">
     <span><a href="{% url 'discussion-board' %}">Main</a> >> <a href="">{{ category }}</a></span>
 </div>
+<div class="add-post-button pb-4">
+    <a class="btn btn-primary text-white" href="{% url 'new-post' %}">Create new post</a>
+</div>
 <div class="table-row row">
     <div class="col-md-7">
         <h5>Topics</h5>
