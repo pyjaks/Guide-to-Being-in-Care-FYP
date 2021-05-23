@@ -1,3 +1,4 @@
 django
 django-sass
 django-profanity-filter
+django-crispy-forms
