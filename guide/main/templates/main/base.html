@@ -10,7 +10,7 @@
     <title>Guide to being in care {% block title %} {% endblock %}</title>
 
     <nav class="navbar navbar-expand-md navbar-dark static-top bg-primary">
-        <a class="navbar-brand" href="">Guide to being in care</a>
+        <a class="navbar-brand text-dark" href="">Guide to being in care</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -18,30 +18,30 @@
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'main' %}">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link text-dark" href="{% url 'main' %}">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'your-education' %}">Your Education</a>
+                    <a class="nav-link text-dark" href="{% url 'your-education' %}">Your Education</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'your-skills' %}">Your Skills</a>
+                    <a class="nav-link text-dark" href="{% url 'your-skills' %}">Your Skills</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'your-wellbeing' %}">Your Wellbeing</a>
+                    <a class="nav-link text-dark" href="{% url 'your-wellbeing' %}">Your Wellbeing</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'your-voice' %}">Your Voice</a>
+                    <a class="nav-link text-dark" href="{% url 'your-voice' %}">Your Voice</a>
                 </li>
                 {% if user.is_over_16 %}
                 <li class="nav-item active">
-                    <a class="nav-link" href="{% url '16+' %}">16+ Services</a>
+                    <a class="nav-link text-dark" href="{% url '16+' %}">16+ Services</a>
                 </li>
                 {% endif %}
                 <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'discussion-board' %}">Discussion Board</a>
+                    <a class="nav-link text-dark" href="{% url 'discussion-board' %}">Discussion Board</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'what-does-that-mean' %}">What does that mean?</a>
+                    <a class="nav-link text-dark" href="{% url 'what-does-that-mean' %}">What does that mean?</a>
                 </li>
               <!-- drop down
               <li class="nav-item dropdown">
