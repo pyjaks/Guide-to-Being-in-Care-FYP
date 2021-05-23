@@ -4,8 +4,8 @@ python manage.py makemigrations
 python manage.py migrate
 python manage.py createsuperuser
 
-sass commands potentially
+python manage.py sass scss/custom.scss static/main/css/custom.css
+python manage.py collectstatic
 
 python manage.py runserver
 ```
-sass commands potentially
