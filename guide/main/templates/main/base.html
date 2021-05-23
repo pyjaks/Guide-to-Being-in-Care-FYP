@@ -24,17 +24,18 @@
                     <a class="nav-link text-dark" href="{% url 'your-education' %}">Your Education</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link text-dark" href="{% url 'your-skills' %}">Your Skills</a>
-                </li>
-                <li class="nav-item active">
                     <a class="nav-link text-dark" href="{% url 'your-wellbeing' %}">Your Wellbeing</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link text-dark" href="{% url 'your-voice' %}">Your Voice</a>
                 </li>
                 {% if user.is_over_16 %}
-                <li class="nav-item active">
-                    <a class="nav-link text-dark" href="{% url '16+' %}">16+ Services</a>
+                <li class="nav-item active dropdown">
+                    <a class="nav-link text-dark dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">16+ Services</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url '16+' %}">16+ Home</a>
+                        <a class="dropdown-item" href="{% url 'your-skills' %}">Your Skills</a>
+                    </div>
                 </li>
                 {% endif %}
                 <li class="nav-item active">
@@ -43,16 +44,6 @@
                 <li class="nav-item active">
                     <a class="nav-link text-dark" href="{% url 'what-does-that-mean' %}">What does that mean?</a>
                 </li>
-              <!-- drop down
-              <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                  <div class="dropdown-menu" aria-labelledby="dropdown01">
-                   <a class="dropdown-item" href="#">Action</a>
-                   <a class="dropdown-item" href="#">Another action</a>
-                   <a class="dropdown-item" href="#">Something else here</a>
-                  </div>
-              </li>
-               ---->
             </ul>
             <span>
                 {% if user.is_authenticated %}
@@ -76,9 +67,8 @@
             <p>Cardiff Children's Services</p>
         </footer>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     <script src="../../assets/js/vendor/popper.min.js"></script>
     <script src="../../dist/js/bootstrap.min.js"></script>
 </body>
