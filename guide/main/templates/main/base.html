@@ -54,13 +54,16 @@
               </li>
                ---->
             </ul>
-            {% if user.is_authenticated %}
-            <p>{{ user.get_username }} | <a href="{% url 'logout'%}?next={{request.path}}">Logout</a></p>
-            {% else %}
-            <p><a href="{% url 'login'%}?next={{request.path}}">Login</a></p>
-            {% endif %}
+            <span>
+                {% if user.is_authenticated %}
+                {{ user.get_username }} | <a href="{% url 'logout'%}?next={{request.path}}">Logout</a>
+                {% else %}
+                <a href="{% url 'login'%}?next={{request.path}}">Login</a>
+                {% endif %}
+            </span>
         </div>
     </nav>
+
 </head>
 <body>
 
