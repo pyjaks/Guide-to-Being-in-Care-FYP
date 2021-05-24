@@ -40,10 +40,30 @@ class PostDetailView(DetailView):
         return context
 
 
+class DiscussionBoardDetailView(View):
+
+    def get(self, request, *args, **kwargs):
+        view = PostDetailView.as_view()
+        return view(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        view = NewCommentFormView.as_view()
+        print(request.POST)
+        if "reply_to" in request.POST:
+            view = NewReplyFormView.as_view()
+        return view(request, *args, **kwargs)
+
+
 class NewCommentFormView(SingleObjectMixin, FormView):
     template_name = 'detail.html'
     form_class = NewCommentForm
     model = Post
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["new_comment_form"] = self.get_form()
+        context['new_reply_formset'] = NewReplyForm()
+        return context
 
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -67,6 +87,12 @@ class NewReplyFormView(SingleObjectMixin, FormView):
     form_class = NewReplyForm
     model = Post
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['new_reply_form'] = self.get_form()
+        context["new_comment_form"] = NewCommentForm
+        return context
+
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return HttpResponseForbidden()
@@ -82,20 +108,6 @@ class NewReplyFormView(SingleObjectMixin, FormView):
 
     def get_success_url(self):
         return reverse('detail', kwargs={'slug': self.object.slug})
-
-
-class DiscussionBoardDetailView(View):
-
-    def get(self, request, *args, **kwargs):
-        view = PostDetailView.as_view()
-        return view(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        view = NewCommentFormView.as_view()
-        print(request.POST)
-        if "reply_to" in request.POST:
-            view = NewReplyFormView.as_view()
-        return view(request, *args, **kwargs)
 
 
 class DiscussionBoardPostsView(ListView):
@@ -128,5 +140,5 @@ class NewPostView(LoginRequiredMixin, CreateView):
 
 
 class NewPostSuccessView(TemplateView):
-    template_name = "new-post-sucess.html"
+    template_name = "new-post-success.html"
 

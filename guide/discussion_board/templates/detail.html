@@ -22,8 +22,8 @@
 <div class="comment-area">
     <form method="post" action="">
         {% csrf_token %}
-        {{ new_comment_form|crispy }}
-        <input type="submit" value="submit">
+        {% crispy new_comment_form %}
+
     </form>
 {% for comment in post.get_comments %}
 <div class="comments-container ml-3">

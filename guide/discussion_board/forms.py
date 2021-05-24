@@ -1,5 +1,6 @@
 from crispy_forms.helper import FormHelper
 from django.forms import ModelForm, Textarea
+from crispy_forms.layout import Submit
 from django.utils.translation import ugettext_lazy as _
 
 from .models import Post, Comment, Reply
@@ -20,6 +21,12 @@ class NewCommentForm(ModelForm):
         model = Comment
         fields = ['content']
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.add_input(Submit('submit', 'Submit'))
+
 
 class NewReplyForm(ModelForm):
     helper = FormHelper()
@@ -30,4 +37,11 @@ class NewReplyForm(ModelForm):
         labels = {
             'content': _('reply_content'),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.add_input(Submit('submit', 'Submit'))
+
 
