@@ -3,8 +3,19 @@
 
 $theme-colors: (
   primary: $cyan
-  color: azure
 );
+
+.asteriskField {
+    display: none;
+}
+
+.hide{
+    display: none;
+}
+
+.text-dark {
+  color: #25292C !important;
+}
 
 @import "../bootstrap/scss/bootstrap";
 

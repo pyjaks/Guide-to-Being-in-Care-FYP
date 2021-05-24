@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-
+{% load static %}
+<script src="{% static 'main/js/customjs.js' %}"></script>
 {% block title %} - Discussion Board {% endblock %}
 
 {% block content %}
@@ -16,24 +17,31 @@
         <div class="content">
             {{post.content}}
             <br>
+            <div class="comment">
+                <button onclick="showComment()">Comment</button>
+            </div>
         </div>
     </div>
 </div>
-<div class="comment-area">
-    <form method="post" action="">
+<div class="comment-area hide" id="comment-area">
+    <form method="post" action="" id="comment-form">
         {% csrf_token %}
         {% crispy new_comment_form %}
     </form>
+</div>
 {% for comment in post.get_comments %}
-<div class="comments-container ml-3">
+<div class="comments-container ml-4">
     <div class="authors">
         <div class="username"><b>{{ comment.user }}</b></div>
     </div>
     <div class="content">
         {{ comment.content }}
         <br>
+        <div class="comment">
+            <button onclick="showReply('comment{{comment.id}}')">Reply</button>
+        </div>
     </div>
-    <div class="comments-container ml-3" style="width: 95%;">
+    <div class="comments-container ml-4" style="width: 95%;">
         {% for reply in comment.get_replies %}
         <div class="body">
             <div class="authors">
@@ -46,7 +54,7 @@
         </div>
         {% endfor %}
     </div>
-    <div class="reply-area ml-3">
+    <div class="reply-area ml-4 hide" id="comment{{comment.id}}">
     <form method="post" action="">
         {% csrf_token %}
         {{ new_reply_form|crispy }}
@@ -55,7 +63,6 @@
     </form>
     </div>
 </div>
+<br>
 {% endfor %}
-
-</div>
 {% endblock %}
