@@ -36,14 +36,34 @@ class PostDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['new_comment_form'] = NewCommentForm()
-        context['new_reply_form'] = NewReplyForm()
+        context['new_reply_formset'] = NewReplyFormSet(queryset=Reply.objects.none())
         return context
+
+
+class DiscussionBoardDetailView(View):
+
+    def get(self, request, *args, **kwargs):
+        view = PostDetailView.as_view()
+        return view(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        print(request.POST)
+        view = NewCommentFormView.as_view()
+        if "reply_to" in request.POST:
+            view = NewReplyFormView.as_view()
+        return view(request, *args, **kwargs)
 
 
 class NewCommentFormView(SingleObjectMixin, FormView):
     template_name = 'detail.html'
     form_class = NewCommentForm
     model = Post
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["new_comment_form"] = self.get_form()
+        context['new_reply_formset'] = NewReplyFormSet(queryset=Reply.objects.none())
+        return context
 
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -64,8 +84,14 @@ class NewCommentFormView(SingleObjectMixin, FormView):
 
 class NewReplyFormView(SingleObjectMixin, FormView):
     template_name = 'detail.html'
-    form_class = NewReplyForm
+    form_class = NewReplyFormSet
     model = Post
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['new_reply_formset'] = self.get_form()
+        context["new_comment_form"] = NewCommentForm
+        return context
 
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -74,28 +100,19 @@ class NewReplyFormView(SingleObjectMixin, FormView):
         return super().post(request, *args, **kwargs)
 
     def form_valid(self, form):
-        form.instance.user = Author.objects.get(user=self.request.user)
-        form.instance.datePosted = datetime.now()
-        form.instance.reply_to = Comment.objects.get(id=form.data["reply_to"])
-        form.instance.save()
+        instances = form.save(commit=False)
+        for instance in instances:
+            instance.user = Author.objects.get(user=self.request.user)
+            instance.datePosted = datetime.now()
+            instance.reply_to = Comment.objects.get(id=form.data["reply_to"])
+            instance.save()
         return super().form_valid(form)
+
+    def form_invalid(self, form):
+        return super().form_invalid(form)
 
     def get_success_url(self):
         return reverse('detail', kwargs={'slug': self.object.slug})
-
-
-class DiscussionBoardDetailView(View):
-
-    def get(self, request, *args, **kwargs):
-        view = PostDetailView.as_view()
-        return view(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        view = NewCommentFormView.as_view()
-        print(request.POST)
-        if "reply_to" in request.POST:
-            view = NewReplyFormView.as_view()
-        return view(request, *args, **kwargs)
 
 
 class DiscussionBoardPostsView(ListView):
@@ -128,5 +145,5 @@ class NewPostView(LoginRequiredMixin, CreateView):
 
 
 class NewPostSuccessView(TemplateView):
-    template_name = "new-post-sucess.html"
+    template_name = "new-post-success.html"
 
