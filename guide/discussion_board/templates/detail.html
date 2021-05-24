@@ -23,7 +23,6 @@
     <form method="post" action="">
         {% csrf_token %}
         {% crispy new_comment_form %}
-
     </form>
 {% for comment in post.get_comments %}
 <div class="comments-container ml-3">

@@ -1,5 +1,5 @@
 from crispy_forms.helper import FormHelper
-from django.forms import ModelForm, Textarea
+from django.forms import ModelForm
 from crispy_forms.layout import Submit
 from django.utils.translation import ugettext_lazy as _
 
@@ -43,5 +43,4 @@ class NewReplyForm(ModelForm):
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.helper.add_input(Submit('submit', 'Submit'))
-
 

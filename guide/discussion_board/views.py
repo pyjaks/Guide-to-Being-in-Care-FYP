@@ -48,7 +48,6 @@ class DiscussionBoardDetailView(View):
 
     def post(self, request, *args, **kwargs):
         view = NewCommentFormView.as_view()
-        print(request.POST)
         if "reply_to" in request.POST:
             view = NewReplyFormView.as_view()
         return view(request, *args, **kwargs)
@@ -62,7 +61,7 @@ class NewCommentFormView(SingleObjectMixin, FormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["new_comment_form"] = self.get_form()
-        context['new_reply_formset'] = NewReplyForm()
+        context['new_reply_form'] = NewReplyForm()
         return context
 
     def post(self, request, *args, **kwargs):
