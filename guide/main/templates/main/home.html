@@ -6,17 +6,17 @@
             <h2 class="display-3">Welcome!</h2>
             <p>This guide has been made for children and young people in care to help answers questions you may have about being in care, such as:</p>
             <ul>
-                <li>How did I become looked after?</li>
+                <li>What is being in care?</li>
                 <li>Who can I talk to about problems I'm having?</li>
                 <li>What do these words or acronyms mean?</li>
             </ul>
             <p>The guide will have advice about your health and wellbeing, and it will
               show you where to find help with your money and life skills.
-              It will also have advice about what to do next, if you're older.</p>
+              It will also have advice about what to do next when leaving care, if you're older.</p>
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-8 ">
                     <h2>What is being in care?</h2>
                     <p>Children and young people who are unable to live at home sometimes have to live with a foster family.
                         Foster care is when children and young people live with and are cared for by people who are not
@@ -29,19 +29,27 @@
                         depending on your circumstance and your needs. You might stay with your foster family for a short
                         time, maybe for a few weeks or a few months or you may need a permanent home with your foster
                         family as you are unable to return to your birth family.</p>
-                    <p>Your social worker will talk to you about
-                        your plan. Social workers will work with your parents and foster carers to make decisions about
-                        what happens to you. They should remember your wishes and feelings when making decisions about you.</p>
+                    <p>Your social worker will talk to you about your plan. Social workers will work with your parents
+                        and foster carers to make decisions about what happens to you. They should remember your wishes
+                        and feelings when making decisions about you.</p>
                 </div>
                 <div class="col-md-4">
                     <h2>Your rights</h2>
                     <p>All children and young people have rights. These rights are what the government says you are entitled to,
                         to make sure you’re treated fairly and that you receive a good standard of care.</p>
-                    <p><a class="btn btn-secondary" href="/main/your-rights" role="button">What are my rights? &raquo;</a></p>
+                    <p><a class="btn btn-secondary" href="{% url 'your-rights' %}" role="button">What are my rights? &raquo;</a></p>
                 </div>
                 <div class="col-md-8">
-                    <h2>How did I become looked after?</h2>
+                    <h2>Will I see my friends?</h2>
+                    <p>
+                        Your social worker and foster family should support you so that you can keep in touch with your
+                        friends from school, if you move away and are not able to see them anymore.
+                    </p>
                 </div>
+            </div>
+            <div>
+                <!-- <p>You can also download a <a href="{{ STATIC_URL }}content/Cardiff-guide-to-Foster-Care.pdf"
+                download>printable guide</a> to foster care.</p> -->
             </div>
         </div>
     </main>
