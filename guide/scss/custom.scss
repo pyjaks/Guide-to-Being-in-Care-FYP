@@ -17,5 +17,9 @@ $theme-colors: (
   color: #25292C !important;
 }
 
+.odd-definition {
+    background-color: $gray-400 !important ;
+}
+
 @import "../bootstrap/scss/bootstrap";
 
