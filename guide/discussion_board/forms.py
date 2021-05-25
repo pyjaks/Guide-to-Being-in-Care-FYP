@@ -26,6 +26,7 @@ class NewCommentForm(ModelForm):
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.helper.add_input(Submit('submit', 'Submit'))
+        self.helper.form_show_labels = False
 
 
 class NewReplyForm(ModelForm):
@@ -35,12 +36,12 @@ class NewReplyForm(ModelForm):
         model = Reply
         fields = ['content']
         labels = {
-            'content': _('reply_content'),
+            'content': _(''),
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_tag = False
-        self.helper.add_input(Submit('submit', 'Submit'))
-
+        #self.helper.add_input(Submit('submit', 'Submit'))
+        self.helper.form_show_labels = False
